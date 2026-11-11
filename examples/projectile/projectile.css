@@ -1,0 +1,23 @@
+/* 예제 4 — 아래 칸 네 개를 운동 단원에 맞춰 바꾼 부분. 색 토큰은 ../../style.css 의 :root 를 따른다. */
+#bays { grid-template-columns: 1.05fr 1fr 1fr 1.45fr; }
+/* 변수는 기울인 라틴 글자로. 한글 글꼴에는 라틴 기울임이 없으므로 기울임이 있는 글꼴을 따로 지정한다. */
+i.v { font-family: 'Times New Roman', 'Noto Serif', Georgia, serif; font-style: italic; font-size: 1.12em; }
+.eq { margin: 3px 0; font-family: var(--font-num); font-size: 11px; line-height: 1.5; color: var(--ink); }
+.eq sub { font-size: .75em; }
+.eq.vx { color: var(--accent); }
+.eq.vy { color: #c4501c; }
+.cap { display: block; margin-top: 3px; font-family: var(--font-body); font-size: 10px; line-height: 1.5; color: var(--ink-2); }
+.split { display: flex; gap: 6px; align-items: flex-start; }
+.split > div { flex: 1; min-width: 0; }
+.split svg { flex: none; }
+#b2 svg { display: block; width: 100%; height: auto; margin-top: 2px; }
+.bay svg text { font-family: var(--font-num); }
+.lcd small { font-family: var(--font-body); font-size: 11px; }
+
+@media (max-width: 640px) {
+  #bays .bay:nth-child(3) { display: none; }
+  #bays .bay:nth-child(4) { display: block; }
+  .eq { font-size: 10px; margin: 1px 0; line-height: 1.4; }
+  .split svg { display: none; }
+  #b2 svg { display: none; }
+}

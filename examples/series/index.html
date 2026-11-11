@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LAB · 직렬 회로 (A 키트 예제 2)</title>
+</head>
+<body>
+  <div id="app">
+    <div id="frame">
+      <canvas id="stage" aria-label="실험 과정을 보여 주는 아이소메트릭 그림"></canvas>
+      <div id="overlay">
+        <div class="plate title"><b>LAB 02 · 직렬 회로</b><span>전압은 나뉘고, 전류는 어디서나 같다</span></div>
+        <div class="chip" id="chip">● 준비 중</div>
+        <div class="note" id="note"><i class="tag">사용 방법</i><b></b><span></span></div>
+        <div id="labels"></div>
+        <div class="callout" id="intro"><i class="tag"></i><b></b><span></span></div>
+        <div class="foot-l plate small" id="kit"></div>
+        <div class="foot-r plate small" id="labtag"></div>
+        <div id="bays">
+          <section class="bay"><header>BAY 01 · 표시창<em id="b1tag">대기</em></header><div class="lcd"><small id="b1mode"></small><b id="b1val"></b><u id="b1unit"></u></div></section>
+          <section class="bay"><header>BAY 02 · 다이얼과 프로브<em id="b3tag">OFF</em></header><div id="b3"></div></section>
+          <section class="bay wide"><header>BAY 03 · 연결 방법<em id="b2tag">—</em></header><div id="b2"></div></section>
+          <section class="bay"><header>BAY 04 · 기능<em id="b4tag">0/0</em></header><div id="b4"></div></section>
+        </div>
+      </div>
+    </div>
+    <div id="bar">
+      <button id="play" title="재생 / 일시정지 (스페이스)">❚❚</button>
+      <button id="restart" title="처음부터">↺</button>
+      <input id="scrub" type="range" min="0" max="1000" value="0" aria-label="타임라인">
+      <span id="clock">0.0 s</span>
+      <button id="spd" title="속도">×1</button>
+      <div id="steps"></div>
+    </div>
+  </div>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

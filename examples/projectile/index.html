@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LAB · 수평으로 던진 운동 (A 키트 예제 4)</title>
+</head>
+<body>
+  <div id="app">
+    <div id="frame">
+      <canvas id="stage" aria-label="수평으로 던진 공의 운동을 보여 주는 아이소메트릭 그림"></canvas>
+      <div id="overlay">
+        <div class="plate title"><b>LAB 04 · 수평으로 던진 운동</b><span>가로는 등속, 세로는 자유 낙하</span></div>
+        <div class="chip" id="chip">● 준비 중</div>
+        <div class="note" id="note"><i class="tag">관찰 포인트</i><b></b><span></span></div>
+        <div id="labels"></div>
+        <div class="callout" id="intro"><i class="tag"></i><b></b><span></span></div>
+        <div class="foot-l plate small" id="kit"></div>
+        <div class="foot-r plate small" id="labtag"></div>
+        <div id="bays">
+          <section class="bay"><header>BAY 01 · 시간<em id="b1tag"></em></header><div id="b1"></div></section>
+          <section class="bay"><header>BAY 02 · 가로 방향<em id="b2tag"></em></header><div id="b2"></div></section>
+          <section class="bay"><header>BAY 03 · 세로 방향<em id="b3tag"></em></header><div id="b3"></div></section>
+          <section class="bay"><header>BAY 04 · 속도 합성<em id="b4tag"></em></header><div id="b4"></div></section>
+        </div>
+      </div>
+    </div>
+    <div id="bar">
+      <button id="play" title="재생 / 일시정지 (스페이스)">❚❚</button>
+      <button id="restart" title="처음부터">↺</button>
+      <input id="scrub" type="range" min="0" max="1000" value="0" aria-label="타임라인">
+      <span id="clock">0.0 s</span>
+      <button id="spd" title="속도">×1</button>
+      <div id="steps"></div>
+    </div>
+  </div>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+/* A 키트 — 종이·잉크 토큰. 색을 바꾸려면 :root 값만 고친다. */
+:root {
+  --paper: #f6f1e6; --card: #fffdf8; --sunken: #efe9dc;
+  --ink: #1d2033; --ink-2: #545867; --line: #1d203321; --line-strong: #1d203342;
+  --accent: #3a46aa; --accent-soft: #3a46aa1a;
+  --hot: #e2632f; --lime: #c9e46a;
+  --plate-shadow: 2px 2px 0 #1d203355;
+  --ease: cubic-bezier(.23, 1, .32, 1);
+  --font-body: 'IBM Plex Sans KR', 'Pretendard', sans-serif;
+  --font-num: 'JetBrains Mono', 'IBM Plex Sans KR', monospace;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; background: #0e0f13; color: var(--ink); font-family: var(--font-num); }
+#app { min-height: 100%; display: flex; flex-direction: column; align-items: center; padding: 12px 12px 0; gap: 10px; }
+#frame { position: relative; width: min(100%, 889px); aspect-ratio: 889 / 711; border-radius: 18px; background: #16171c; padding: 12px; box-shadow: 0 10px 40px #0008; }
+#stage { width: 100%; height: 100%; display: block; border-radius: 10px; background: var(--paper); }
+/* 종이 결: 아주 옅은 잡음 */
+#overlay::before { content: ''; position: absolute; inset: 0; opacity: .5; mix-blend-mode: multiply; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .45 0 0 0 0 .4 0 0 0 0 .3 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E"); }
+#overlay { position: absolute; inset: 12px; pointer-events: none; border-radius: 10px; outline: 1px dashed #1d203333; outline-offset: -6px; overflow: hidden; }
+
+.plate { position: absolute; background: var(--card); border: 1.5px solid var(--ink); border-radius: 7px; box-shadow: var(--plate-shadow); padding: 6px 10px; }
+.plate.title { left: 12px; top: 12px; min-width: 240px; }
+.plate.title b { display: block; font-size: 11.5px; }
+.plate.title span { display: block; font-size: 9.5px; color: var(--ink-2); margin-top: 2px; }
+.plate.small { font-size: 8.5px; padding: 3px 8px; border-radius: 999px; }
+.foot-l { left: 12px; bottom: 168px; } .foot-r { right: 12px; bottom: 168px; }
+.callout { position: absolute; left: 50%; top: 12%; transform: translate(-50%, -6px); background: #fffdf8f0; border: 1.5px solid var(--ink); border-radius: 8px; box-shadow: var(--plate-shadow); padding: 14px 20px 9px; text-align: center; opacity: 0; transition: opacity .3s var(--ease), transform .3s var(--ease); }
+.callout.on { opacity: 1; transform: translate(-50%, 0); }
+.callout .tag { left: 50%; transform: translateX(-50%); white-space: nowrap; }
+.callout b { display: block; font-size: 17px; }
+.callout span { display: block; font-size: 15px; color: var(--hot); margin-top: 3px; }
+.chip { position: absolute; right: 12px; top: 12px; background: var(--lime); border: 1.5px solid var(--ink); border-radius: 999px; font-size: 10px; padding: 3px 10px; box-shadow: var(--plate-shadow); }
+
+.tag { position: absolute; left: 10px; top: -9px; font-style: normal; font-size: 8.5px; background: var(--lime); border: 1px solid var(--ink); border-radius: 999px; padding: 0 7px; }
+.note { position: absolute; left: 12px; top: 64px; max-width: 360px; background: var(--card); border: 1.5px solid var(--ink); border-radius: 7px; box-shadow: var(--plate-shadow); padding: 12px 12px 8px; opacity: 0; transform: translateY(-4px); transition: opacity .28s var(--ease), transform .28s var(--ease); }
+.note.on { opacity: 1; transform: none; }
+.note b { display: block; font-size: 12.5px; font-weight: 600; }
+.note span { display: block; font-size: 12px; color: var(--hot); margin-top: 3px; }
+
+#labels .lbl { position: absolute; transform: translate(-50%, -50%); font-size: 9px; background: var(--card); border: 1.2px solid var(--ink); border-radius: 999px; padding: 1px 7px; white-space: nowrap; transition: opacity .25s; }
+#labels svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+
+#bays { position: absolute; left: 10px; right: 10px; bottom: 10px; height: 150px; display: grid; grid-template-columns: 1.1fr 1fr 1.5fr 1fr; gap: 6px; }
+.bay { background: var(--card); border: 1.5px solid var(--ink); border-radius: 7px; padding: 6px 8px; font-size: 9px; position: relative; overflow: hidden; }
+.bay header { display: flex; justify-content: space-between; align-items: center; font-size: 8.5px; color: var(--ink-2); margin-bottom: 6px; }
+.bay header em { font-style: normal; font-size: 8px; border: 1px solid var(--ink); border-radius: 999px; padding: 0 6px; color: var(--ink); background: var(--sunken); }
+.lcd { position: relative; height: 104px; border-radius: 6px; background: #c7d3a6; border: 5px solid #23252c; box-shadow: inset 0 2px 0 #0002; display: flex; align-items: flex-end; justify-content: flex-end; padding: 6px 10px; font-family: var(--font-num); color: #1f2420; }
+.lcd small { position: absolute; left: 8px; top: 5px; font-size: 10px; } .lcd small i { font-style: normal; opacity: .16; } .lcd small i.lit { opacity: 1; }   /* 꺼진 표시는 흐리게 */
+.lcd b { font-size: 34px; font-weight: 700; letter-spacing: -.02em; line-height: 1; position: relative; }
+.lcd b::before { content: attr(data-ghost); position: absolute; right: 0; color: #1f242014; }   /* 꺼진 칸 */
+.bay .pl { margin: 6px 0; font-size: 10px; display: flex; align-items: center; gap: 6px; } .bay .pl s { text-decoration: none; color: var(--ink-2); }
+.dot { width: 9px; height: 9px; border-radius: 50%; border: 1.2px solid var(--ink); flex: none; } .dot.b { background: #2a2c33; } .dot.r { background: #d0453a; }
+.fn { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
+.fn span { border: 1.2px solid var(--ink); border-radius: 4px; text-align: center; padding: 6px 0; font: 600 11px var(--font-num); background: var(--card); }
+.fn span.done { background: #eef4d8; }
+.fnt { display: flex; gap: 8px; align-items: center; margin-bottom: 6px; }
+.fnt i { width: 34px; height: 34px; flex: none; border-radius: 6px; background: #23252c; color: var(--lime); font: 700 11px var(--font-num); font-style: normal; display: grid; place-items: center; }
+.fnt b { display: block; font-size: 11.5px; } .fnt small { color: var(--ink-2); font-size: 8.5px; }
+.bay .pl.hi { background: #f6e3a3; border-radius: 4px; }
+.bay .next { display: block; margin-top: 6px; color: var(--ink-2); font-size: 9px; }
+#b2 svg { display: block; width: 100%; height: 70px; }
+#b2 .x { margin-top: 2px; font-family: var(--font-num); font-size: 9.5px; color: var(--ink); }
+.fn span.on { background: #d9ef8f; box-shadow: inset 0 0 0 1.5px var(--ink); }
+.lcd u { text-decoration: none; font-size: 13px; margin-left: 4px; margin-bottom: 2px; }
+code { font-family: var(--font-num); font-weight: 700; }
+
+#bar { width: min(100%, 889px); display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding-bottom: 12px; color: #c9cad2; font-size: 11px; }
+#bar button { font: inherit; color: #e6e7ee; background: #1d1f26; border: 1px solid #2c2f39; border-radius: 999px; padding: 6px 12px; cursor: pointer; }
+#bar #play { background: #f08a2c; color: #1d1f26; border: 0; width: 44px; font-weight: 700; }
+#bar #restart { width: 32px; padding: 6px 0; }
+#scrub { flex: 1; min-width: 160px; accent-color: #f08a2c; }
+#steps { display: flex; flex-wrap: wrap; gap: 6px; width: 100%; }
+#steps button.on { background: #f08a2c; color: #1d1f26; border-color: #f08a2c; }
+@media (prefers-reduced-motion: reduce) { .note, .callout { transition: none; } }
+
+.still * { transition: none !important; }
+
+
+#b2 b { display: block; font-size: 12px; margin-bottom: 2px; }
+#b2 p { margin: 0; font-family: var(--font-body); font-size: 12px; line-height: 1.6; color: var(--ink-2); }
+
+/* 휴대폰 세로: 그림 칸을 세로로 길게, 판독 칸·안내 상자를 작게 (그림이 가려지지 않게) */
+@media (max-width: 640px) {
+  #app { padding: 8px 8px 0; }
+  #frame { aspect-ratio: 3 / 4.4; padding: 8px; border-radius: 14px; }
+  #overlay { inset: 8px; }
+  .plate.title { left: 8px; top: 8px; min-width: 0; max-width: 58%; padding: 4px 8px; }
+  .plate.title b { font-size: 10px; } .plate.title span { display: none; }
+  .chip { right: 8px; top: 8px; font-size: 9px; padding: 2px 8px; }
+  .note { left: 8px; right: 8px; top: 40px; max-width: none; padding: 9px 10px 6px; }
+  .note b { font-size: 11px; } .note span { font-size: 10.5px; }
+  #bays { left: 6px; right: 6px; bottom: 6px; height: 92px; grid-template-columns: 1fr 1.5fr; gap: 4px; }
+  #bays .bay:nth-child(2), #bays .bay:nth-child(4) { display: none; }   /* 좁으면 표시창·하는 일만 */
+  .bay { padding: 4px 6px; }
+  .bay header { margin-bottom: 3px; font-size: 7.5px; }
+  .lcd { height: 62px; border-width: 3px; padding: 4px 6px; }
+  .lcd b { font-size: 22px; } .lcd small { font-size: 8px; } .lcd u { font-size: 10px; }
+  #b2 b { font-size: 11px; margin-bottom: 3px; } #b2 p { font-size: 10px; line-height: 1.45; }
+  #labels .lbl { font-size: 8px; }
+  .foot-l, .foot-r { display: none; }
+  .callout { top: 22%; padding: 10px 12px 6px; width: 86%; } .callout b { font-size: 13px; } .callout span { font-size: 12px; }
+  #b2 svg { display: none; } #b2 .x { font-size: 9px; line-height: 1.4; }   /* 좁으면 회로도 대신 식만 */
+  #bar { gap: 6px; } #bar button { padding: 5px 10px; font-size: 10.5px; }
+}
+
+/* 한국어 글: 문장은 고정폭 글꼴 대신 본문 글꼴로 (고정폭은 낱말 사이가 너무 벌어짐), 낱말 중간에서 줄을 바꾸지 않음.
+   숫자·단자 이름·BAY 번호처럼 짧은 표시만 고정폭으로 둔다. */
+html { word-break: keep-all; overflow-wrap: break-word; font-synthesis: none; }
+.note b, .note span, .callout b, .callout span, .plate.title, .fnt b, .fnt small, .bay .pl, .bay .next, #b2 b, #b2 p, #labels .lbl { font-family: var(--font-body); }
+.note b { font-size: 13px; } .note span { font-size: 12.5px; line-height: 1.5; }
